@@ -33,6 +33,17 @@ def cleanup(in_f, out_f):
 
 if __name__ == '__main__':
     import os
-    transform('boa_2.css', 'gen.css')
-    cleanup('gen.css', 'boa_2.css')
-    os.remove('gen.css')
+    import sys
+
+    if (len(sys.argv)) == 5 and (sys.argv[1] == '-i') and  (sys.argv[3] == '-o'):
+        input_file = sys.argv[2].strip()
+        output_file = sys.argv[4].strip()
+        if input_file.endswith('.css') and output_file.endswith('.css'):
+            transform(input_file, 'gen.css')
+            cleanup('gen.css', output_file)
+            os.remove('gen.css')
+        else:
+            print('\n*** USAGE: gen_css.py -i input_file.css -o output_file.css ***\n')
+            quit()
+    else:
+        print('\n*** USAGE: gen_css.py -i input_file.css -o output_file.css ***\n')
